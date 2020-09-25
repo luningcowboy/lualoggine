@@ -140,6 +140,7 @@ for i = 1, MAX_LEVELS do
     end
 end
 
+-- export
 this.DEBUG = DEBUG
 this.INFO = INFO
 this.WARN = WARN
