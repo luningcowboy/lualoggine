@@ -29,13 +29,19 @@ local LOG_MSG
 local disable_level
 local assert
 
+-- do nothing
 function disable_level() end
 
+-- assert
+-- @param #boolean exp
 function assert(exp, ...) 
     if exp then return exp, ... end
     error(format(...), 2)
 end
 
+-- 构造函数
+-- @param #function append
+-- @return #Logger
 function new(append)
     if type(append) ~= 'function' then return nil, 'Appender must be a function' end
 
@@ -69,6 +75,11 @@ function new(append)
     return logger
 end
 
+-- prepareLogMsg
+-- @param pattern
+-- @param dt
+-- @param level
+-- @param message
 function prepareLogMsg(pattern, dt, level, message)
     local logMsg = pattern or "%date %level %message\n"
     message = string.gsub(message, "%%", "%%%%")
@@ -78,6 +89,8 @@ function prepareLogMsg(pattern, dt, level, message)
     return logMsg
 end
 
+-- tostring
+-- @param #any value
 function tostring(value)
     local str = ''
     local t = type(value)
@@ -114,6 +127,9 @@ function tostring(value)
     return str
 end
 
+-- LOG_MSG
+-- @param level
+-- @param fmt
 function LOG_MSG(self, level, fmt, ...)
     local f_type = type(fmt)
     if f_type == 'string' then
